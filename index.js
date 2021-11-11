@@ -17,12 +17,29 @@ async function run() {
         await client.connect();
         const database = client.db('drone-zilla');
         const ordersCollection = database.collection('orders');
+        const usersCollection = database.collection('users');
+
+
+        app.get('/orders', async (req, res) => {
+            const email = req.query.email;
+            const query = { email: email }
+            console.log(query);
+            const cursor = ordersCollection.find(query);
+            const orders = await cursor.toArray();
+            res.json(orders);
+        })
 
         app.post('/orders', async (req, res) => {
             const order = req.body;
             const result = await ordersCollection.insertOne(order);
+            res.json(result)
+
+        })
+        app.post('/users', async (req, res) => {
+            const user = req.body;
+            const result = await usersCollection.insertOne(user);
             console.log(result);
-            res.json({ message: 'hello' })
+            res.json(result)
 
         })
 
