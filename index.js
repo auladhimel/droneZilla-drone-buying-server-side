@@ -23,6 +23,7 @@ async function run() {
         const usersCollection = database.collection('users');
         const productsCollection = database.collection('products');
         const reviewsCollection = database.collection('reviews');
+        const galleryCollection = database.collection("gallery");
 
 
 
@@ -114,6 +115,13 @@ async function run() {
             console.log(result);
             res.json(result)
 
+        })
+        // API for gallery 
+        // get 
+        app.get('/gallery', async (req, res) => {
+            const cursor = galleryCollection.find({})
+            const gallery = await cursor.toArray()
+            res.send(gallery)
         })
 
     }
