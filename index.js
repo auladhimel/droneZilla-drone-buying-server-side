@@ -24,7 +24,7 @@ async function run() {
 
 
 
-
+        // API for Customer Review
         app.post('/reviews', async (req, res) => {
             const review = req.body;
             const result = await reviewsCollection.insertOne(review);
@@ -34,8 +34,14 @@ async function run() {
 
         })
 
+        app.get('/reviews', async (req, res) => {
+            const cursor = reviewsCollection.find({});
+            const reviews = await cursor.toArray();
+            res.send(reviews);
+        })
 
 
+        // API for Products
         app.post('/products', async (req, res) => {
             const product = req.body;
             const result = await productsCollection.insertOne(product);
@@ -51,7 +57,7 @@ async function run() {
         })
 
 
-
+        // API for Orders
         app.get('/orders', async (req, res) => {
             const email = req.query.email;
             const query = { email: email }
@@ -67,6 +73,8 @@ async function run() {
             res.json(result)
 
         })
+
+        // API for Users
         app.get('/users/:email', async (req, res) => {
             const email = req.params.email;
             const query = { email: email };
