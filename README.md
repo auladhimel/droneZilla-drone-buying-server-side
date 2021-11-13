@@ -2,7 +2,7 @@
 "DroneZilla" Web Application is for saling most trending drone in online platform. User can buy their desire drone from here. They can check there order list. Admin can check all the orders and can manage them.
 
 # Live Link
-Click here to visit the site :
+Click here to visit the site : https://drone-zilla.web.app/
 
 
 ## Project Details
