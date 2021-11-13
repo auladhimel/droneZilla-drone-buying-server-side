@@ -17,6 +17,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 async function run() {
     try {
         await client.connect();
+        // collections 
         const database = client.db('drone-zilla');
         const ordersCollection = database.collection('orders');
         const usersCollection = database.collection('users');
@@ -104,15 +105,16 @@ async function run() {
             res.json(result)
 
         })
-        // app.put('/users/admin', async (req, res) => {
-        //     const user = req.body;
-        //     const filter = { email: user.email };
-        //     const updateDoc = { $set: { role: 'admin' } };
-        //     const result = await usersCollection.updateOne(filter, updateDoc);
-        //     console.log(result);
-        //     res.json(result)
+        // API for creating user as admin
+        app.put('/users/admin', async (req, res) => {
+            const user = req.body;
+            const filter = { email: user.email };
+            const updateDoc = { $set: { role: 'admin' } };
+            const result = await usersCollection.updateOne(filter, updateDoc);
+            console.log(result);
+            res.json(result)
 
-        // })
+        })
 
     }
     finally {
@@ -120,7 +122,7 @@ async function run() {
     }
 }
 run().catch(console.dir);
-
+// Testing API
 app.get('/', (req, res) => {
     res.send('Hello DroneZilla!')
 })
