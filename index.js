@@ -20,6 +20,19 @@ async function run() {
         const ordersCollection = database.collection('orders');
         const usersCollection = database.collection('users');
         const productsCollection = database.collection('products');
+        const reviewsCollection = database.collection('reviews');
+
+
+
+
+        app.post('/reviews', async (req, res) => {
+            const review = req.body;
+            const result = await reviewsCollection.insertOne(review);
+            console.log(review);
+            console.log(result);
+            res.json(result)
+
+        })
 
 
 
