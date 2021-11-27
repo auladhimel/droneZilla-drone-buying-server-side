@@ -1,5 +1,5 @@
 # DroneZilla
-"DroneZilla" Web Application is for saling most trending drone in online platform. User can buy their desire drone from here. They can check there order list. Admin can check all the orders and can manage them.
+"DroneZilla" Web Application is for buying most trending drone in online platform. User can buy their desire drone from here. They can check there order list. Admin can check all the orders and can manage them.
 
 This git code is for server side of the project.
 
@@ -8,7 +8,7 @@ Click here to visit the site : https://drone-zilla.web.app/
 
 
 ## Project Details
-- "DroneZilla" is a online Drone shopping web application. By using this anyone can buy their desire drone and can create videos or else. 
+- "DroneZilla" is a online Drone shopping website. By using this anyone can buy their desire drone and can create videos or else. 
 - User can see details of drone products of different model.
 - User can make purchase for particular Drone.
 - Admin can add a new Drone and can manage them.
@@ -18,13 +18,13 @@ Click here to visit the site : https://drone-zilla.web.app/
 - User can cancel their purchase also by using this. 
 
 ### Project technology
-React, react router, bootstrap, css,node js, mongodb, express js
+React, React Router, Bootstrap, CSS, Node.js, MongoDB, Express.js
 
 ### Data
 Here all data will be added and deleted by the admin from the dashboard.
 
 ### Created by
-Aulad Himel
+Aulad Hossen
 
 ### hosted
 Firebase, Heroku
