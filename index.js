@@ -172,6 +172,17 @@ async function run() {
                 });
         })
 
+        // API for manage products delete 
+
+        app.delete('/products/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await productsCollection.deleteOne(query);
+            console.log('deleting', id);
+            res.json(result)
+
+        })
+
         // API for gallery 
         // get 
         app.get('/gallery', async (req, res) => {
