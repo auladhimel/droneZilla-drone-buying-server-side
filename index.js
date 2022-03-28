@@ -13,6 +13,8 @@ app.use(express.json());
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.ufni7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
+console.log(uri);
+
 
 async function run() {
     try {
@@ -116,6 +118,60 @@ async function run() {
             res.json(result)
 
         })
+
+        // API for Manage Orders as admin
+        app.get('/allOrders', async (req,res)=>{
+            const cursor= ordersCollection.find({});
+            const orders= await cursor.toArray();
+            console.log(orders);
+            res.send(orders);
+        })
+
+        // Update Status
+
+        app.put('/updateStatus/:id', async(req,res)=>{
+            const id=req.params.id;
+            const updatedStatus=req.body.status;
+            const filter={_id:ObjectId(id)};
+            console.log(updatedStatus);
+            ordersCollection.updateOne(filter, {
+                $set:{status:updatedStatus},
+            })
+            .then((result)=>{
+                res.send(result);
+            });
+        });
+        
+        // SIngle Product Update API
+
+        // Get single Product for updating
+        app.get("/singleProduct/:id", (req,res)=>{
+            console.log(req.params.id);
+            productsCollection.findOne({_id:ObjectId(req.params.id)})
+            .then((result)=>{
+                console.log(result);
+                res.send(result);
+
+            });
+        })
+
+        app.put("/update/:id", async(req,res)=>{
+            const id= req.params.id;
+            const updatedName=req.body;
+            const filter={_id: ObjectId(id)};
+            productsCollection.updateOne(filter,{
+                $set:{
+                    productName:updatedName.productName,
+                    price:updatedName.price,
+                    description:updatedName.description,
+                    
+                },
+                })
+                .then(result=>{
+                    res.send(result);
+                });
+        })
+
         // API for gallery 
         // get 
         app.get('/gallery', async (req, res) => {
@@ -132,7 +188,7 @@ async function run() {
 run().catch(console.dir);
 // Testing API
 app.get('/', (req, res) => {
-    res.send('Hello DroneZilla!')
+    res.send('Hello DroneZilla! Are you there?')
 })
 
 app.listen(port, () => {
