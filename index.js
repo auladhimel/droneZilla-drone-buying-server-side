@@ -76,7 +76,7 @@ async function run() {
             const order = req.body;
             const result = await ordersCollection.insertOne(order);
             res.json(result)
-
+            console.log(result);
         })
 
         app.delete('/orders/:id', async (req, res) => {
@@ -88,11 +88,11 @@ async function run() {
 
         })
 //  New
-        app.post('/purchase/:id', async (req, res) => {
-            const order= req.body;
-            const result= await ordersCollection.insertOne(order);
-            res.json(result)
-        })
+        // app.post('/purchase/:id', async (req, res) => {
+        //     const order= req.body;
+        //     const result= await ordersCollection.insertOne(order);
+        //     res.json(result)
+        // })
 
         app.get("/singlePurchase/:id", (req, res) => {
             console.log(req.params.id);
