@@ -87,6 +87,20 @@ async function run() {
             res.json(result)
 
         })
+//  New
+        app.post('/purchase/:id', async (req, res) => {
+            const order= req.body;
+            const result= await ordersCollection.insertOne(order);
+            res.json(result)
+        })
+
+        app.get("/singlePurchase/:id", (req, res) => {
+            console.log(req.params.id);
+             productsCollection.findOne({ _id: ObjectId(req.params.id) })
+            .then((result)=>{
+             res.send(result)
+            })
+        })
 
         // API for Users
         app.get('/users/:email', async (req, res) => {
