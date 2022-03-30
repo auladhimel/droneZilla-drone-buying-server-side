@@ -4,6 +4,7 @@ const cors = require('cors');
 require('dotenv').config();
 const { MongoClient } = require('mongodb');
 const ObjectId = require('mongodb').ObjectId;
+const stripe = require('stripe')(process.env.STRIPE_SECRET)
 
 const port = process.env.PORT || 5000
 // middleware
@@ -194,6 +195,50 @@ async function run() {
             res.json(result)
 
         })
+
+        // API for payment 
+
+
+        app.get('/ordersId/:id', async (req,res)=>{
+            const id = req.params.id;
+            const query={_id: ObjectId(id)};
+            const result = await ordersCollection.findOne(query);
+            res.json(result);
+        })
+
+
+        // For saving payment info in database
+
+        app.put('/ordersId/:id', async (req,res) =>{
+            const id = req.params.id;
+            const payment = req.body;
+            const filter={_id: ObjectId(id)};
+            const updateDoc = {
+                $set: {
+                    payment: payment
+                }
+            };
+            const result = await ordersCollection.updateOne(filter, updateDoc);
+            res.json(result);
+        })
+
+
+
+        // Payment Gateway Stripe API
+
+        app.post('/create-payment-intent', async (req, res) => {
+            const paymentInfo = req.body;
+            const amount= paymentInfo.price * 100;
+          
+            // Create a PaymentIntent with the order amount and currency
+            const paymentIntent = await stripe.paymentIntents.create({
+              
+              currency: 'usd',
+              amount: amount,
+              payment_method_types: ['card']
+            });
+            res.json({clientSecret: paymentIntent.client_secret});
+          });
 
         // API for gallery 
         // get 
