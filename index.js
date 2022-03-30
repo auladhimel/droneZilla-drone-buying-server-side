@@ -85,7 +85,6 @@ async function run() {
             const result = await ordersCollection.deleteOne(query);
             console.log('deleting', id);
             res.json(result)
-
         })
 //  New
         // app.post('/purchase/:id', async (req, res) => {
