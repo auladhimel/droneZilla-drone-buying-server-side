@@ -176,8 +176,7 @@ async function run() {
                 $set:{
                     productName:updatedName.productName,
                     price:updatedName.price,
-                    description:updatedName.description,
-                    
+                    description:updatedName.description,                   
                 },
                 })
                 .then(result=>{
@@ -203,7 +202,6 @@ async function run() {
             const gallery = await cursor.toArray()
             res.send(gallery)
         })
-
     }
     finally {
         // await client.close();
